@@ -1,21 +1,25 @@
-<script>
-  // Layout
-
+<script lang="ts">
   const timers = [
-    { label: 'Spanish', icon: '🇪🇸' },
-    { label: 'Reading', icon: '📖' },
-    { label: 'Vlog', icon: '🎥' },
-    { label: 'Stretching', icon: '🧘‍♀️' },
-    { label: 'Journal', icon: '📝' },
-    { label: 'Charisma', icon: '🗣' },
+    { label: 'Spanish', icon: '🇪🇸', time: 10 },
+    { label: 'Reading', icon: '📖', time: 15 },
+    { label: 'Vlog', icon: '🎥', time: 10 },
+    { label: 'Stretching', icon: '🧘‍♀️', time: 20 },
+    { label: 'Journal', icon: '📝', time: 5 },
+    { label: 'Charisma', icon: '🗣', time: 5 },
   ]
+
+  type Timer = typeof timers[number]
+
+  function onClick({ time }: Timer) {
+    alert(time)
+  }
 </script>
 
 <main>
-  {#each timers as { label, icon }}
-    <button on:click={() => alert(label)}>
-      <span role="img" aria-label={label}>
-        {icon}
+  {#each timers as timer}
+    <button on:click={() => onClick(timer)}>
+      <span role="img" aria-label={timer.label}>
+        {timer.icon}
       </span>
     </button>
   {/each}
