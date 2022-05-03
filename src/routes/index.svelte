@@ -10,14 +10,20 @@
 
   type Timer = typeof timers[number]
 
-  function onClick({ time }: Timer) {
-    alert(time)
+  let active: Timer | null = null
+
+  function onClick(timer: Timer) {
+    active = timer
+    setTimeout(() => {
+      alert(`${timer.label} is done!`)
+      active = null
+    }, timer.time * 100)
   }
 </script>
 
 <main>
   {#each timers as timer}
-    <button on:click={() => onClick(timer)}>
+    <button on:click={() => onClick(timer)} class:active={timer === active}>
       <span role="img" aria-label={timer.label}>
         {timer.icon}
       </span>
@@ -46,5 +52,9 @@
   }
   button:hover {
     border-color: cornflowerblue;
+  }
+
+  button.active {
+    opacity: 0.3;
   }
 </style>
